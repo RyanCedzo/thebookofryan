@@ -7,7 +7,7 @@ interface PageProps {
   };
 }
 
-export default function TravelLocationPage({ params }: PageProps) {
+export default function Page({ params }: PageProps) {
   const location = travelData.find((item) => item.slug === params.slug);
 
   if (!location) return notFound();
@@ -24,7 +24,6 @@ export default function TravelLocationPage({ params }: PageProps) {
   );
 }
 
-// 👇 This lets Next.js statically generate pages for each travel entry
 export function generateStaticParams() {
   return travelData.map((item) => ({
     slug: item.slug,
