@@ -8,7 +8,6 @@ import { allBlogs } from '../.contentlayer/generated/index.mjs'
 import { sortPosts } from 'pliny/utils/contentlayer.js'
 
 import fs from 'fs'
-import path from 'path'
 
 const tagDataPath = path.resolve('./app/tag-data.json')
 const tagData = JSON.parse(fs.readFileSync(tagDataPath, 'utf8'))
