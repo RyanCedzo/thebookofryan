@@ -1,5 +1,6 @@
 import travelData from '@/data/travelData';
 import { notFound } from 'next/navigation';
+import type { Metadata, ResolvingMetadata } from 'next';
 
 interface PageProps {
   params: {
@@ -30,7 +31,10 @@ export function generateStaticParams() {
   }));
 }
 
-export async function generateMetadata({ params }: PageProps) {
+export async function generateMetadata(
+  { params }: { params: { slug: string } },
+  parent?: ResolvingMetadata
+): Promise<Metadata> {
   const location = travelData.find((item) => item.slug === params.slug);
 
   if (!location) return { title: 'Not Found' };
