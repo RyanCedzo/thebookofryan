@@ -24,7 +24,6 @@ import rehypePrismPlus from 'rehype-prism-plus'
 import rehypePresetMinify from 'rehype-preset-minify'
 import siteMetadata from './data/siteMetadata'
 import { allCoreContent, sortPosts } from 'pliny/utils/contentlayer.js'
-import prettier from 'prettier'
 
 const root = process.cwd()
 const isProduction = process.env.NODE_ENV === 'production'
@@ -64,6 +63,7 @@ const computedFields: ComputedFields = {
  */
 async function createTagCount(allBlogs) {
   const tagCount: Record<string, number> = {}
+
   allBlogs.forEach((file) => {
     if (file.tags && (!isProduction || file.draft !== true)) {
       file.tags.forEach((tag) => {
@@ -76,7 +76,8 @@ async function createTagCount(allBlogs) {
       })
     }
   })
-  const formatted = await prettier.format(JSON.stringify(tagCount, null, 2), { parser: 'json' })
+
+  const formatted = JSON.stringify(tagCount, null, 2) // 2-space indent formatting
   writeFileSync('./app/tag-data.json', formatted)
 }
 

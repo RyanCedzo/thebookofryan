@@ -35,7 +35,7 @@ export default function Home({ posts }) {
                         <div className="py-2 pr-3">
                           <Image
                             alt={title}
-                            src={images?.length ? images[0] : "/static/images/twitter-card.png"}
+                            src={images?.length ? images[0] : '/static/images/twitter-card.png'}
                             className="object-cover object-center"
                             width={215}
                             height={150}

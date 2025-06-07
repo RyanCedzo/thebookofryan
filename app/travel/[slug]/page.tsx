@@ -1,17 +1,22 @@
-import travelData from '@/data/travelData';
-import { notFound } from 'next/navigation';
-import type { Metadata, ResolvingMetadata } from 'next';
+import travelData from '@/data/travelData'
+import { notFound } from 'next/navigation'
+import type { Metadata } from 'next'
 
-interface PageProps {
-  params: {
-    slug: string;
-  };
+type Props = {
+  params: Promise<Params>
 }
 
-export default function Page({ params }: PageProps) {
-  const location = travelData.find((item) => item.slug === params.slug);
+type Params = {
+  slug: string
+}
 
-  if (!location) return notFound();
+export default async function TravelLocationPage({ params }: Props) {
+  const { slug } = await params;
+  const location = travelData.find((item) => item.slug === slug);
+
+  if (!location) {
+    notFound()
+  }
 
   return (
     <div className="mx-auto max-w-3xl p-6 text-center">
@@ -22,25 +27,21 @@ export default function Page({ params }: PageProps) {
       )}
       <p className="text-lg text-gray-700 dark:text-gray-300">{location.description}</p>
     </div>
-  );
+  )
 }
 
-export function generateStaticParams() {
+// Tell Next.js which slugs to statically generate at build time
+export async function generateStaticParams(): Promise<Params[]> {
   return travelData.map((item) => ({
     slug: item.slug,
-  }));
+  }))
 }
 
-export async function generateMetadata(
-  { params }: { params: { slug: string } },
-  parent?: ResolvingMetadata
-): Promise<Metadata> {
-  const location = travelData.find((item) => item.slug === params.slug);
-
-  if (!location) return { title: 'Not Found' };
-
+// Optional: metadata for the page, typed correctly
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { slug } = await params;
+  const location = travelData.find((item) => item.slug === slug);
   return {
-    title: location.title,
-    description: location.description,
-  };
+    title: location?.title ?? 'Location Not Found',
+  }
 }
