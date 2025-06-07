@@ -29,3 +29,14 @@ export function generateStaticParams() {
     slug: item.slug,
   }));
 }
+
+export async function generateMetadata({ params }: PageProps) {
+  const location = travelData.find((item) => item.slug === params.slug);
+
+  if (!location) return { title: 'Not Found' };
+
+  return {
+    title: location.title,
+    description: location.description,
+  };
+}
