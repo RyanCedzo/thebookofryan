@@ -1,10 +1,16 @@
-import travelData from '@/data/travelData'
-import { notFound } from 'next/navigation'
+import travelData from '@/data/travelData';
+import { notFound } from 'next/navigation';
 
-export default function TravelLocationPage({ params }: { params: { slug: string } }) {
-  const location = travelData.find((item) => item.slug === params.slug)
+interface PageProps {
+  params: {
+    slug: string;
+  };
+}
 
-  if (!location) return notFound()
+export default function TravelLocationPage({ params }: PageProps) {
+  const location = travelData.find((item) => item.slug === params.slug);
+
+  if (!location) return notFound();
 
   return (
     <div className="mx-auto max-w-3xl p-6 text-center">
@@ -15,5 +21,12 @@ export default function TravelLocationPage({ params }: { params: { slug: string 
       )}
       <p className="text-lg text-gray-700 dark:text-gray-300">{location.description}</p>
     </div>
-  )
+  );
+}
+
+// 👇 This lets Next.js statically generate pages for each travel entry
+export function generateStaticParams() {
+  return travelData.map((item) => ({
+    slug: item.slug,
+  }));
 }
