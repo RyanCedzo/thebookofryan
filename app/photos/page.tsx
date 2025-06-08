@@ -1,10 +1,10 @@
 // app/photos/page.tsx
-import photosData from '@/data/photosData';
-import Image from 'next/image';
-import Link from 'next/link';
-import { genPageMetadata } from 'app/seo';
+import photosData from '@/data/photosData'
+import Image from 'next/image'
+import Link from 'next/link'
+import { genPageMetadata } from 'app/seo'
 
-export const metadata = genPageMetadata({ title: 'Photos' });
+export const metadata = genPageMetadata({ title: 'Photos' })
 
 export default function PhotosPage() {
   return (
@@ -14,7 +14,7 @@ export default function PhotosPage() {
           Photos
         </h1>
         <p className="text-lg text-gray-500 dark:text-gray-400">
-          A collection of visual moments.
+          A collection of visual moments. Click on some photos for details. I'll add a filter for camera and location soon...
         </p>
       </div>
 
