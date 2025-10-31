@@ -255,7 +255,7 @@ const photosData: Photo[] = [
     },
     {
         title: 'Bison in the Badlands',
-        imgSrc: '/static/images/gallery/badlands.jpg',
+        imgSrc: '/static/images/gallery/badlands.JPG',
         isVertical: false,
         camera: "Sony A7iv",
         location: "Badlands National Park, SD",
@@ -264,7 +264,7 @@ const photosData: Photo[] = [
     },
     {
         title: 'Sleeping Marmot',
-        imgSrc: '/static/images/gallery/sleepingMarmot.jpg',
+        imgSrc: '/static/images/gallery/sleepingMarmot.JPG',
         isVertical: false,
         camera: "Sony A7iv",
         location: "Mt Rainier National Park, WA",
@@ -273,7 +273,7 @@ const photosData: Photo[] = [
     },
     {
         title: 'Friendly Black Bear',
-        imgSrc: '/static/images/gallery/blackBear.jpg',
+        imgSrc: '/static/images/gallery/blackBear.JPG',
         isVertical: false,
         camera: "Sony A7iv",
         location: "Mt Rainier National Park, WA",
@@ -291,7 +291,7 @@ const photosData: Photo[] = [
     },
     {
         title: 'Nervous Chipmunk',
-        imgSrc: '/static/images/gallery/nervousChipmunk.jpg',
+        imgSrc: '/static/images/gallery/nervousChipmunk.JPG',
         isVertical: false,
         camera: "Sony A7iv",
         location: "Mt Rainier National Park, WA",
@@ -300,7 +300,7 @@ const photosData: Photo[] = [
     },
     {
         title: 'Oystercatchers',
-        imgSrc: '/static/images/gallery/oystercatchers.jpg',
+        imgSrc: '/static/images/gallery/oystercatchers.JPG',
         isVertical: false,
         camera: "Sony A7iv",
         location: "Salt Creek Recreation Area, Olympic Peninsula, WA",
@@ -309,7 +309,7 @@ const photosData: Photo[] = [
     },
     {
         title: 'Haystack Rock',
-        imgSrc: '/static/images/gallery/cannonBeach.jpg',
+        imgSrc: '/static/images/gallery/cannonBeach.JPG',
         isVertical: false,
         camera: "Sony A7iv",
         location: "Cannon Beach, OR",
@@ -327,7 +327,7 @@ const photosData: Photo[] = [
     },
     {
         title: 'Yosemite Falls',
-        imgSrc: '/static/images/gallery/yosemiteFalls.jpg',
+        imgSrc: '/static/images/gallery/yosemiteFalls.JPG',
         isVertical: true,
         camera: "Sony A7iv",
         location: "Yosemite National Park, CA",
@@ -336,7 +336,7 @@ const photosData: Photo[] = [
     },
     {
         title: 'The Squad & Yosemite Falls',
-        imgSrc: '/static/images/gallery/groupPicYosemite.jpg',
+        imgSrc: '/static/images/gallery/groupPicYosemite.JPG',
         isVertical: true,
         camera: "Sony A7iv",
         location: "Yosemite National Park, CA",
@@ -345,7 +345,7 @@ const photosData: Photo[] = [
     },
     {
         title: 'Yosemite Valley from Taft Point',
-        imgSrc: '/static/images/gallery/yosemiteValley.jpg',
+        imgSrc: '/static/images/gallery/yosemiteValley.JPG',
         isVertical: true,
         camera: "Sony A7iv",
         location: "Taft Point, Yosemite National Park, CA",
@@ -360,6 +360,15 @@ const photosData: Photo[] = [
         location: "Big Island, HI",
         date: "October 25, 2025",
         description: "The reason for my most recent trip. Sophie and Alex had shrimp and one was pregnant, so it was a combination shrimp baby shower and halloween party. Holly, Brandon, Will, Tim, Kanoa, and River on the couch at the party"
+    },
+    {
+        title: 'Cedar Point',
+        imgSrc: '/static/images/gallery/cedarPoint.jpg',
+        isVertical: false,
+        camera: "Pentax IQZoom 105G",
+        location: "Cedar Point, OH",
+        date: "May 25, 2025",
+        description: "I don't even remember which coaster it was, but had to get a film shot during the ride"
     },
     
     
