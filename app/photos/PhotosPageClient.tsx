@@ -23,10 +23,22 @@ export default function PhotosPage() {
 
   // Dropdown options
   const cameras = [...new Set(photosData.map((p) => p.camera).filter(Boolean))];
-  const states = [...new Set(photosData.map((p) => getStateFromLocation(p.location)).filter(Boolean))];
+
+  // Type-safe state options
+  const states = [
+    ...new Set(
+      photosData
+        .map((p) => getStateFromLocation(p.location))
+        .filter((s): s is string => Boolean(s))
+    ),
+  ];
+
   const years = [
-    ...new Set(photosData.map((p) => getDateObj(p.date).getFullYear()).filter(Boolean)),
+    ...new Set(
+      photosData.map((p) => getDateObj(p.date).getFullYear()).filter(Boolean)
+    ),
   ].sort((a, b) => b - a); // descending: most recent first
+
   const months = [
     "January","February","March","April","May","June",
     "July","August","September","October","November","December",
