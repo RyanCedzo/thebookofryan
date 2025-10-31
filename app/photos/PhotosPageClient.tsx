@@ -9,11 +9,12 @@ import { genPageMetadata } from "app/seo";
 export const metadata = genPageMetadata({ title: "Photos" });
 
 // Helpers
-const getStateFromLocation = (loc: string) => {
+const getStateFromLocation = (loc: string | undefined) => {
+  if (!loc) return "";
   const parts = loc.split(",");
   return parts.length > 1 ? parts[parts.length - 1].trim() : "";
 };
-const getDateObj = (dateStr: string) => new Date(dateStr);
+const getDateObj = (dateStr: string | undefined) => (dateStr ? new Date(dateStr) : new Date(0));
 
 export default function PhotosPage() {
   const [selectedCamera, setSelectedCamera] = useState("");
@@ -22,10 +23,15 @@ export default function PhotosPage() {
   const [selectedMonth, setSelectedMonth] = useState("");
 
   // Dropdown options
-  const cameras = [...new Set(photosData.map((p) => p.camera).filter(Boolean))];
+  const cameras: string[] = [
+    ...new Set(
+      photosData
+        .map((p) => p.camera)
+        .filter((c): c is string => Boolean(c))
+    ),
+  ];
 
-  // Type-safe state options
-  const states = [
+  const states: string[] = [
     ...new Set(
       photosData
         .map((p) => getStateFromLocation(p.location))
@@ -33,11 +39,13 @@ export default function PhotosPage() {
     ),
   ];
 
-  const years = [
+  const years: number[] = [
     ...new Set(
-      photosData.map((p) => getDateObj(p.date).getFullYear()).filter(Boolean)
+      photosData
+        .map((p) => getDateObj(p.date).getFullYear())
+        .filter((y): y is number => Boolean(y))
     ),
-  ].sort((a, b) => b - a); // descending: most recent first
+  ].sort((a, b) => b - a); // most recent first
 
   const months = [
     "January","February","March","April","May","June",
@@ -60,7 +68,6 @@ export default function PhotosPage() {
 
         return matchesCamera && matchesState && matchesYear && matchesMonth;
       })
-      // Sort by most recent date first
       .sort((a, b) => getDateObj(b.date).getTime() - getDateObj(a.date).getTime());
   }, [selectedCamera, selectedState, selectedYear, selectedMonth]);
 
