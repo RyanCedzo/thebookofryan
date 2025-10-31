@@ -134,4 +134,15 @@ input:-webkit-autofill:focus {
   vertical-align: middle;
 }
 
+/* Hide native select arrows */
+.custom-select {
+  -webkit-appearance: none; /* Chrome, Safari */
+  -moz-appearance: none;    /* Firefox */
+  appearance: none;         /* Standard */
+  background: transparent;  /* Prevent default arrow */
+}
+
+.custom-select::-ms-expand {
+  display: none; /* IE10+ / Edge */
+}
 
