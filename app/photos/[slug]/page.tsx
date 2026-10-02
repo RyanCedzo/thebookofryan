@@ -1,42 +1,86 @@
-'use client'; // Mark this component as a Client Component
+import Link from 'next/link'
+import { notFound } from 'next/navigation'
+import type { Metadata } from 'next'
+import Image from '@/components/Image'
+import { photos, getPhoto, getLocation } from '@/data/photoUtils'
 
-import { useParams } from 'next/navigation'; // Import from next/navigation
-import photosData from '@/data/photosData';
+type Props = { params: Promise<{ slug: string }> }
 
-const PhotoPage = () => {
-  const { slug } = useParams(); // Access the dynamic slug
-  
-  const photo = photosData.find((p) => p.title.toLowerCase().replace(/\s+/g, '-') === slug);
+export function generateStaticParams() {
+  return photos.map((p) => ({ slug: p.id }))
+}
 
-  if (!photo) {
-    return <div>Photo not found</div>;
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { slug } = await params
+  const photo = getPhoto(slug)
+  return {
+    title: photo?.title ?? 'Photo not found',
+    description: photo?.description,
   }
+}
+
+export default async function PhotoPage({ params }: Props) {
+  const { slug } = await params
+  const photo = getPhoto(slug)
+  if (!photo) notFound()
+
+  const location = getLocation(photo.locationId)
+  const index = photos.findIndex((p) => p.id === photo.id)
+  const newer = photos[index - 1]
+  const older = photos[index + 1]
 
   return (
-    <div className="max-w-4xl mx-auto py-12">
-      <img
-        src={photo.imgSrc}
-        alt={photo.title}
-        className="w-full h-auto object-cover rounded-lg shadow-lg"
-      />
-    <div className="mx-auto max-w-2xl text-center mt-8">
-        <h1 className="text-3xl font-bold text-gray-900 dark:text-white">{photo.title}</h1>
+    <article>
+      <div className="bg-surface relative h-[60vh] w-full sm:h-[75vh]">
+        <Image
+          src={photo.imgSrc}
+          alt={photo.alt}
+          fill
+          sizes="(min-width: 1024px) 1024px, 100vw"
+          className="object-contain"
+          priority
+        />
+      </div>
 
-        {photo.date && (
-            <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
-            {photo.date}
-            </p>
-        )}
+      <div className="mx-auto mt-8 max-w-[68ch]">
+        <h1 className="font-serif text-3xl sm:text-4xl">{photo.title}</h1>
+        <p className="meta mt-2">
+          {[photo.date, photo.camera, photo.location].filter(Boolean).join(' · ')}
+        </p>
+        {photo.description && <p className="mt-5 text-lg">{photo.description}</p>}
 
-        <div className="text-gray-600 dark:text-gray-400 mt-4 space-y-1 text-lg">
-            {photo.camera && <p><strong>Camera:</strong> {photo.camera}</p>}
-            {photo.location && <p><strong>Location:</strong> {photo.location}</p>}
-        </div>
+        <p className="mt-6 flex flex-wrap gap-x-6 gap-y-2 text-sm">
+          {photo.locationId && (
+            <Link
+              href={`/travel?pin=${photo.locationId}`}
+              className="text-accent-strong underline underline-offset-4"
+            >
+              View {location?.title ?? 'location'} on the map
+            </Link>
+          )}
+          <Link href="/photos" className="text-muted hover:text-text underline underline-offset-4">
+            All photos
+          </Link>
+        </p>
 
-        <p className="mt-4 text-base text-gray-700 dark:text-gray-300">{photo.description}</p>
-    </div>
-    </div>
-  );
-};
-
-export default PhotoPage;
+        <nav
+          aria-label="More photos"
+          className="border-border mt-10 flex justify-between border-t pt-6 text-sm"
+        >
+          {newer ? (
+            <Link href={`/photos/${newer.id}`} className="text-muted hover:text-text">
+              &larr; {newer.title}
+            </Link>
+          ) : (
+            <span />
+          )}
+          {older && (
+            <Link href={`/photos/${older.id}`} className="text-muted hover:text-text">
+              {older.title} &rarr;
+            </Link>
+          )}
+        </nav>
+      </div>
+    </article>
+  )
+}

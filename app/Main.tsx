@@ -1,102 +1,80 @@
 import Link from '@/components/Link'
-import Tag from '@/components/Tag'
-import Image from '@/components/Image'
+import PhotoTile, { photoGridClass } from '@/components/PhotoTile'
 import siteMetadata from '@/data/siteMetadata'
+import { photos } from '@/data/photoUtils'
 import { formatDate } from 'pliny/utils/formatDate'
-import NewsletterForm from 'pliny/ui/NewsletterForm'
 
-const MAX_DISPLAY = 5
+const MAX_POSTS = 3
+const MAX_PHOTOS = 6
 
 export default function Home({ posts }) {
+  const recentPhotos = photos.slice(0, MAX_PHOTOS)
+
   return (
-    <>
-      <div className="divide-y divide-gray-200 dark:divide-gray-700">
-        <div className="space-y-2 pt-6 pb-8 md:space-y-5">
-          <h1 className="text-3xl leading-9 font-extrabold tracking-tight text-gray-900 sm:text-4xl sm:leading-10 md:text-6xl md:leading-14 dark:text-gray-100">
-            Latest
+    <div className="space-y-20 pt-2">
+      <section aria-labelledby="recent-photos">
+        <div className="mb-6 flex items-baseline justify-between">
+          <h1 id="recent-photos" className="font-serif text-2xl sm:text-3xl">
+            Recent photos
           </h1>
-          <p className="text-lg leading-7 text-gray-500 dark:text-gray-400">
-            {siteMetadata.description}
-          </p>
+          <Link href="/photos" className="text-muted hover:text-text text-sm transition-colors">
+            All photos &rarr;
+          </Link>
         </div>
-        <ul className="divide-y divide-gray-200 dark:divide-gray-700">
-          {!posts.length && 'No posts found.'}
-          {posts.slice(0, MAX_DISPLAY).map((post) => {
-            //console.log(posts)
-            const { slug, date, title, summary, images, tags } = post
+        <div className={photoGridClass}>
+          {recentPhotos.map((photo, i) => (
+            <PhotoTile key={photo.id} photo={photo} priority={i < 3} />
+          ))}
+        </div>
+      </section>
+
+      <section aria-labelledby="recent-posts">
+        <div className="mb-2 flex items-baseline justify-between">
+          <h2 id="recent-posts" className="font-serif text-2xl sm:text-3xl">
+            Recent writing
+          </h2>
+          <Link href="/blog" className="text-muted hover:text-text text-sm transition-colors">
+            All posts &rarr;
+          </Link>
+        </div>
+        <ul className="divide-border divide-y">
+          {!posts.length && <li className="text-muted py-6">No posts yet.</li>}
+          {posts.slice(0, MAX_POSTS).map((post) => {
+            const { slug, date, title, summary } = post
             return (
-              <li key={slug} className="py-12">
-                <article>
-                  <div className="space-y-2 xl:grid xl:grid-cols-4 xl:items-baseline xl:space-y-0">
-                    <dl>
-                      <dt className="sr-only">Published on</dt>
-                      <dd className="text-base leading-6 font-medium text-gray-500 dark:text-gray-400">
-                        <time dateTime={date}>{formatDate(date, siteMetadata.locale)}</time>
-                        <div className="py-2 pr-3">
-                          <Image
-                            alt={title}
-                            src={images?.length ? images[0] : '/static/images/twitter-card.png'}
-                            className="object-cover object-center"
-                            width={215}
-                            height={150}
-                          />
-                        </div>
-                      </dd>
-                    </dl>
-                    <div className="space-y-5 xl:col-span-3">
-                      <div className="space-y-6">
-                        <div>
-                          <h2 className="text-2xl leading-8 font-bold tracking-tight">
-                            <Link
-                              href={`/blog/${slug}`}
-                              className="text-gray-900 dark:text-gray-100"
-                            >
-                              {title}
-                            </Link>
-                          </h2>
-                          <div className="flex flex-wrap">
-                            {tags.map((tag) => (
-                              <Tag key={tag} text={tag} />
-                            ))}
-                          </div>
-                        </div>
-                        <div className="prose max-w-none text-gray-500 dark:text-gray-400">
-                          {summary}
-                        </div>
-                      </div>
-                      <div className="text-base leading-6 font-medium">
-                        <Link
-                          href={`/blog/${slug}`}
-                          className="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400"
-                          aria-label={`Read more: "${title}"`}
-                        >
-                          Read more &rarr;
-                        </Link>
-                      </div>
-                    </div>
+              <li key={slug} className="py-6">
+                <article className="grid gap-1 sm:grid-cols-[9rem_1fr] sm:gap-8">
+                  <time dateTime={date} className="meta pt-1.5">
+                    {formatDate(date, siteMetadata.locale)}
+                  </time>
+                  <div>
+                    <h3 className="font-serif text-xl leading-snug">
+                      <Link
+                        href={`/blog/${slug}`}
+                        className="hover:text-accent-strong transition-colors"
+                      >
+                        {title}
+                      </Link>
+                    </h3>
+                    {summary && <p className="text-muted mt-1.5">{summary}</p>}
                   </div>
                 </article>
               </li>
             )
           })}
         </ul>
-      </div>
-      {posts.length > MAX_DISPLAY && (
-        <div className="flex justify-end text-base leading-6 font-medium">
-          <Link
-            href="/blog"
-            className="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400"
-            aria-label="All posts"
-          >
-            All Posts &rarr;
-          </Link>
-        </div>
-      )}
-      {/* {siteMetadata.newsletter?.provider && (
-        <div className="flex items-center justify-center pt-4">
-          <NewsletterForm />
-        </div>
-      )} */}
-    </>
+      </section>
+
+      <p className="text-muted text-sm">
+        Looking for somewhere in particular?{' '}
+        <Link
+          href="/travel"
+          className="text-accent-strong underline decoration-border underline-offset-4 hover:decoration-accent"
+        >
+          See the map
+        </Link>{' '}
+        of places I&apos;ve been.
+      </p>
+    </div>
   )
 }

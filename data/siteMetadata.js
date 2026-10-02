@@ -3,9 +3,9 @@ const siteMetadata = {
   title: 'The Book of Ryan',
   author: 'Ryan Cedzo',
   headerTitle: 'The Book of Ryan',
-  description: 'Ryans Life',
+  description: 'Travel, photos, and other thoughts.',
   language: 'en-us',
-  theme: 'system', // system, dark or light
+  theme: 'light', // v1 is light-only
   siteUrl: 'https://tailwind-nextjs-starter-blog.vercel.app',
   siteRepo: 'https://github.com/RyanCedzo/bookofryan',
   siteLogo: `${process.env.BASE_PATH || ''}/static/images/logo.png`,

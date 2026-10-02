@@ -45,3 +45,7 @@ yarn-error.log*
 
 # Contentlayer
 .contentlayer
+
+#cursor
+/docs/brief.md
+.cursor/rules/blog-redesign.mdc

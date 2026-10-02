@@ -1,36 +1,29 @@
 import Link from './Link'
 import siteMetadata from '@/data/siteMetadata'
-import SocialIcon from '@/components/social-icons'
 
 export default function Footer() {
+  const links = [
+    { label: 'Instagram', href: siteMetadata.instagram },
+    { label: 'GitHub', href: siteMetadata.github },
+    { label: 'Medium', href: siteMetadata.medium },
+    { label: 'Email', href: siteMetadata.email ? `mailto:${siteMetadata.email}` : undefined },
+  ].filter((l) => l.href)
+
   return (
-    <footer>
-      <div className="mt-16 flex flex-col items-center">
-        <div className="mb-3 flex space-x-4">
-          <SocialIcon kind="mail" href={`mailto:${siteMetadata.email}`} size={6} />
-          <SocialIcon kind="github" href={siteMetadata.github} size={6} />
-          <SocialIcon kind="facebook" href={siteMetadata.facebook} size={6} />
-          <SocialIcon kind="youtube" href={siteMetadata.youtube} size={6} />
-          <SocialIcon kind="linkedin" href={siteMetadata.linkedin} size={6} />
-          <SocialIcon kind="twitter" href={siteMetadata.twitter} size={6} />
-          <SocialIcon kind="bluesky" href={siteMetadata.bluesky} size={6} />
-          <SocialIcon kind="x" href={siteMetadata.x} size={6} />
-          <SocialIcon kind="instagram" href={siteMetadata.instagram} size={6} />
-          <SocialIcon kind="threads" href={siteMetadata.threads} size={6} />
-          <SocialIcon kind="medium" href={siteMetadata.medium} size={6} />
-        </div>
-        <div className="mb-2 flex space-x-2 text-sm text-gray-500 dark:text-gray-400">
-          <div>{siteMetadata.author}</div>
-          <div>{` • `}</div>
-          <div>{`© ${new Date().getFullYear()}`}</div>
-          <div>{` • `}</div>
-          <Link href="/">{siteMetadata.title}</Link>
-        </div>
-        <div className="mb-8 text-sm text-gray-500 dark:text-gray-400">
-          <Link href="https://github.com/timlrx/tailwind-nextjs-starter-blog">
-            Tailwind Nextjs Theme
-          </Link>
-        </div>
+    <footer className="border-border mt-20 border-t py-8">
+      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+        <p className="meta">
+          &copy; {new Date().getFullYear()} {siteMetadata.author}
+        </p>
+        <ul className="flex flex-wrap gap-x-6 gap-y-2 text-sm">
+          {links.map((l) => (
+            <li key={l.label}>
+              <Link href={l.href as string} className="text-muted hover:text-text transition-colors">
+                {l.label}
+              </Link>
+            </li>
+          ))}
+        </ul>
       </div>
     </footer>
   )

@@ -4,6 +4,7 @@ export interface TravelLocation {
     date: string
     lat: number
     lng: number
+    /** Stable key. Also used as locationId on photos (photosData). */
     slug: string
     imgSrc?: string
     isCurrent?: boolean

@@ -7,6 +7,7 @@ const photosData: Photo[] = [
         isVertical: false,
         camera: "Vivitar PS:35",
         location: "Erie St, Bisbee, AZ",
+        locationId: 'bisbee',
         date: "December 7, 2024",
         description: "Example Description I took this photo driving through Bisbee, AZ"
     },
@@ -43,6 +44,7 @@ const photosData: Photo[] = [
         isVertical: false,
         camera: "Vivitar PS:35",
         location: "Los Angeles, CA",
+        locationId: 'los-angeles',
         date: "April 26, 2025",
         description: "Going away party as I decided to leave LA to pursue fulltime nomadic life. I love all my friends in this photo. Such wonderful people and how lucky I am to have shared time with them."
     },
@@ -61,6 +63,7 @@ const photosData: Photo[] = [
         isVertical: false,
         camera: "Vivitar PS:35",
         location: "Vernal Falls, Yosemite, CA",
+        locationId: 'yosemite',
         date: "April 12, 2025",
         description: "A small rainbow above the Merced river just beyond Vernal Falls in Yosemite National Park"
     },
@@ -97,6 +100,7 @@ const photosData: Photo[] = [
         isVertical: false,
         camera: "Vivitar PS:35",
         location: "White Sands National Park, NM",
+        locationId: 'white-sands',
         date: "December 8, 2024",
         description: "Part of my first ever film rolls. Ventured out amongst the dunes in search of the perfect shaded area for the black and white photo."
     },
@@ -133,6 +137,7 @@ const photosData: Photo[] = [
         isVertical: false,
         camera: "Vivitar PS:35",
         location: "Yosemite National Park, CA",
+        locationId: 'yosemite',
         date: "April 10, 2025",
         description: "Leaving Yosemite just past Tunnel View towards the South Entrance. I could've framed this better."
     },
@@ -169,6 +174,7 @@ const photosData: Photo[] = [
         isVertical: false,
         camera: "Pentax IQZoom 105G",
         location: "Vernal Falls, Yosemite NP, CA",
+        locationId: 'yosemite',
         date: "October 21, 2025",
         description: "Nolan and Ali jumping in front of Vernal Falls in Yosemite. We climbed down and swam underneath the falls after this picture."
     },
@@ -214,6 +220,7 @@ const photosData: Photo[] = [
         isVertical: true,
         camera: "Pentax IQZoom 105G",
         location: "Tuolumne Meadows, Yosemite NP, CA",
+        locationId: 'yosemite',
         date: "October 20, 2025",
         description: "The log cabin built over the springs at Soda Springs in Yosemite. John Lembert built and stayed in the cabin in the late 1800s. John Muir camped in this area of Tuolumne Meadows before the cabin was built."
     },
@@ -223,6 +230,7 @@ const photosData: Photo[] = [
         isVertical: false,
         camera: "Pentax IQZoom 105G",
         location: "Alabama Hills, CA",
+        locationId: 'alabama-hills',
         date: "October 15, 2025",
         description: "This is my van, Fox, in black & white film in the Alabama Hills"
     },
@@ -241,6 +249,7 @@ const photosData: Photo[] = [
         isVertical: false,
         camera: "Pentax IQZoom 105G",
         location: "Mt Rainier National Park, WA",
+        locationId: 'rainier',
         date: "September 15, 2025",
         description: "This was taken from the SW side of Rainier on the paradise trail. Love mountains in black and white, especially with the clouds. The contrast is wonderful."
     },
@@ -268,6 +277,7 @@ const photosData: Photo[] = [
         isVertical: false,
         camera: "Sony A7iv",
         location: "Mt Rainier National Park, WA",
+        locationId: 'rainier',
         date: "September 15, 2025",
         description: "This marmot woke up a few moments after this and started screaming/whistling to alert us of a nearby bear"
     },
@@ -277,6 +287,7 @@ const photosData: Photo[] = [
         isVertical: false,
         camera: "Sony A7iv",
         location: "Mt Rainier National Park, WA",
+        locationId: 'rainier',
         date: "September 15, 2025",
         description: "Didn't even notice this black bear sneaking up until a marmot scream alerted me of his presence"
     },
@@ -295,6 +306,7 @@ const photosData: Photo[] = [
         isVertical: false,
         camera: "Sony A7iv",
         location: "Mt Rainier National Park, WA",
+        locationId: 'rainier',
         date: "September 15, 2025",
         description: "Just a lil nervous guy. Very photogenic though"
     },
@@ -331,6 +343,7 @@ const photosData: Photo[] = [
         isVertical: true,
         camera: "Sony A7iv",
         location: "Yosemite National Park, CA",
+        locationId: 'yosemite',
         date: "October 18, 2025",
         description: "A good view of the bottom of the upper fall and beginning of the lower fall. Didnt even walk off the path for this photo, as the group was headed to the lodge for lunch and no time to stop"
     },
@@ -340,6 +353,7 @@ const photosData: Photo[] = [
         isVertical: true,
         camera: "Sony A7iv",
         location: "Yosemite National Park, CA",
+        locationId: 'yosemite',
         date: "October 18, 2025",
         description: "Originally wanted to take everyone to Vernal Falls, but we ran out of time and found this bridge on the walk back to cars. What a great photo opportunity"
     },
@@ -349,6 +363,7 @@ const photosData: Photo[] = [
         isVertical: true,
         camera: "Sony A7iv",
         location: "Taft Point, Yosemite National Park, CA",
+        locationId: 'yosemite',
         date: "October 20, 2025",
         description: "Drove up for the sunset, but my favorite photo was black and white. The way the sun shines through the valley as it sets is unmatched"
     },

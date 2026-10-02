@@ -7,35 +7,33 @@ module.exports = {
       typography: {
         DEFAULT: {
           css: {
+            maxWidth: '68ch',
             a: {
-              color: 'var(--color-primary-500)',
+              color: 'var(--color-accent-strong)',
+              textDecorationColor: 'var(--color-border)',
+              textUnderlineOffset: '3px',
+              fontWeight: '500',
               '&:hover': {
-                color: 'var(--color-primary-600)',
+                textDecorationColor: 'var(--color-accent)',
               },
-              code: { color: 'var(--color-primary-400)' },
+              code: { color: 'var(--color-text)' },
             },
-            'h1,h2': {
-              fontWeight: '700',
-              letterSpacing: 'var(--tracking-tight)',
-            },
-            h3: {
+            'h1,h2,h3,h4': {
+              fontFamily: 'var(--font-serif)',
               fontWeight: '600',
+              letterSpacing: '-0.01em',
             },
             code: {
-              color: 'var(--color-indigo-500)',
+              color: 'var(--color-text)',
+              backgroundColor: 'var(--color-surface)',
+              padding: '0.1em 0.3em',
+              borderRadius: '2px',
+              fontWeight: '400',
             },
+            'code::before': { content: 'none' },
+            'code::after': { content: 'none' },
           },
         },
-      },
-      keyframes: {
-        pulse: {
-          '0%': { transform: 'scale(0.9)', opacity: '0.7' },
-          '70%': { transform: 'scale(1.4)', opacity: '0' },
-          '100%': { transform: 'scale(0.9)', opacity: '0' },
-        },
-      },
-      animation: {
-        'pulse-marker': 'pulse 2s infinite',
       },
     },
   },
