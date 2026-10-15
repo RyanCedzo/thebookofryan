@@ -639,6 +639,72 @@ const travelData: TravelLocation[] = [
         isCurrent: false,
         type: "National Park"
     },
+    {
+        title: 'Kauai',
+        description: 'Quick camping/hiking trip with Kanoa, River, and Madeline',
+        date: 'April 2025',
+        lat: 22.0833,
+        lng: -159.5000,
+        slug: 'kauai',
+        imgSrc: '/static/images/travel/kauaiCoast.jpg',
+        isCurrent: false,
+        type: "Other"
+    },
+    {
+        title: 'Big Island',
+        description: 'Too many trips to count with my wonderful friends',
+        date: 'December 2021',
+        lat: 19.7241,
+        lng: -155.0868,
+        slug: 'big-island',
+        imgSrc: '/static/images/travel/theCracks.jpg',
+        isCurrent: false,
+        type: "Other"
+    },
+    {
+        title: 'Sorrento, Italy',
+        description: 'A Pennsylvanian, Hawaiian, German, and Australian took a train ride',
+        date: 'July 2023',
+        lat: 40.6261,
+        lng: 14.3761,
+        slug: 'sorrento',
+        imgSrc: '/static/images/travel/sorrento.jpg',
+        isCurrent: false,
+        type: "City"
+    },
+    {
+        title: 'Naples, Italy',
+        description: 'Went for drinks at our favorite secret spot and the entire hostel followed. Ended with drunk juggling',
+        date: 'July 2023',
+        lat: 40.8358,
+        lng: 14.2486,
+        slug: 'naples',
+        imgSrc: '/static/images/travel/naples.jpg',
+        isCurrent: false,
+        type: "City"
+    },
+    {
+        title: 'Rome, Italy',
+        description: 'Wild night capped off with a popup rave and JD Boomer sighting',
+        date: 'July 2023',
+        lat: 41.8933,
+        lng: 12.4828,
+        slug: 'rome',
+        imgSrc: '/static/images/travel/rome.jpg',
+        isCurrent: false,
+        type: "City"
+    },
+    {
+        title: 'Pompeii, Italy',
+        description: 'Wouldn\'t miss it',
+        date: 'July 2023',
+        lat: 40.7500,
+        lng: 14.4861,
+        slug: 'pompeii',
+        imgSrc: '/static/images/travel/pompeii.jpg',
+        isCurrent: false,
+        type: "City"
+    },
 ]
 
 export default travelData

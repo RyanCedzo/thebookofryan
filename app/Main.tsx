@@ -1,15 +1,11 @@
 import Link from '@/components/Link'
-import PhotoTile, { photoGridClass } from '@/components/PhotoTile'
+import RecentPhotoGrid from '@/components/RecentPhotoGrid'
 import siteMetadata from '@/data/siteMetadata'
-import { photos } from '@/data/photoUtils'
 import { formatDate } from 'pliny/utils/formatDate'
 
 const MAX_POSTS = 3
-const MAX_PHOTOS = 6
 
 export default function Home({ posts }) {
-  const recentPhotos = photos.slice(0, MAX_PHOTOS)
-
   return (
     <div className="space-y-20 pt-2">
       <section aria-labelledby="recent-photos">
@@ -21,11 +17,7 @@ export default function Home({ posts }) {
             All photos &rarr;
           </Link>
         </div>
-        <div className={photoGridClass}>
-          {recentPhotos.map((photo, i) => (
-            <PhotoTile key={photo.id} photo={photo} priority={i < 3} />
-          ))}
-        </div>
+        <RecentPhotoGrid />
       </section>
 
       <section aria-labelledby="recent-posts">
