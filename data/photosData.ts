@@ -385,7 +385,24 @@ const photosData: Photo[] = [
         date: "May 25, 2025",
         description: "I don't even remember which coaster it was, but had to get a film shot during the ride"
     },
-    
+    {
+        title: 'Mt Fuji Kite',
+        imgSrc: '/static/images/gallery/fujiKite.JPG',
+        isVertical: true,
+        camera: "Sony A7iv",
+        location: "Fujikawaguchiko, Japan",
+        date: "Jan 3, 2026",
+        description: "Met a cool skydiver from the UK in Kyoto that reccomended this town to me. After taking a train and bus, I sat outside in a local park waiting for the sunset when I spotted a boy and a woman flying a kite together. I'm sure this is a memory that will stay with that boy."
+    },
+    {
+        title: 'Hornstrandir Fox Cub',
+        imgSrc: '/static/images/gallery/hornstrandirFox.JPG',
+        isVertical: false,
+        camera: "Sony A7iv",
+        location: "Hornvík, Hornstrandir, Iceland",
+        date: "Jul 18, 2026",
+        description: "On dat 2 of backpacking hornstrandir, I had spent the day hiking from the horn, to the Hornbjargsviti lighthouse and then back to Hornvík where I decided to camp for the night. I spent the entire evening (the sun set after midnight so it was a long evening) sitting and watching the arctic fox cubs play around the surrounding area. I even got to witness a mother fox bring back a seabird catch to feed to the cubs, who fought over the bird in a long game of tug-of-war. Eventually I noticed this little guy sleeping and walked a little too close and woke him up. You can see the irritation in his face - sorry!"
+    },
     
     
     // more photos...
