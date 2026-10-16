@@ -423,7 +423,7 @@ const photosData: Photo[] = [
     },
     {
         title: 'Itsukushima (Miyajima Island) Deer',
-        imgSrc: '/static/images/gallery/miyajimaDeer.JPG',
+        imgSrc: '/static/images/gallery/miyajimaDeer.jpg',
         isVertical: false,
         camera: "Sony A7iv",
         location: "Itsukushima, Japan",
