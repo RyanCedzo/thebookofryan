@@ -414,7 +414,7 @@ const photosData: Photo[] = [
     },
     {
         title: 'Mom and Cub Arctic Foxes',
-        imgSrc: '/static/images/gallery/momAndCubFox.JPG',
+        imgSrc: '/static/images/gallery/momAndCubFox.jpg',
         isVertical: false,
         camera: "Sony A7iv",
         location: "Hlöðuvík, Hornstrandir, Iceland",
@@ -423,7 +423,7 @@ const photosData: Photo[] = [
     },
     {
         title: 'Itsukushima (Miyajima Island) Deer',
-        imgSrc: '/static/images/gallery/miyajimaDeer.jpg',
+        imgSrc: '/static/images/gallery/miyajimaDeer.JPG',
         isVertical: false,
         camera: "Sony A7iv",
         location: "Itsukushima, Japan",
