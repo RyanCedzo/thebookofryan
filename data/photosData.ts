@@ -391,19 +391,45 @@ const photosData: Photo[] = [
         isVertical: true,
         camera: "Sony A7iv",
         location: "Fujikawaguchiko, Japan",
-        date: "Jan 3, 2026",
+        date: "January 3, 2026",
         description: "Met a cool skydiver from the UK in Kyoto that reccomended this town to me. After taking a train and bus, I sat outside in a local park waiting for the sunset when I spotted a boy and a woman flying a kite together. I'm sure this is a memory that will stay with that boy."
     },
     {
-        title: 'Hornstrandir Fox Cub',
+        title: 'Hornstrandir Arctic Fox Cub',
         imgSrc: '/static/images/gallery/hornstrandirFox.JPG',
         isVertical: false,
         camera: "Sony A7iv",
         location: "Hornvík, Hornstrandir, Iceland",
-        date: "Jul 18, 2026",
-        description: "On dat 2 of backpacking hornstrandir, I had spent the day hiking from the horn, to the Hornbjargsviti lighthouse and then back to Hornvík where I decided to camp for the night. I spent the entire evening (the sun set after midnight so it was a long evening) sitting and watching the arctic fox cubs play around the surrounding area. I even got to witness a mother fox bring back a seabird catch to feed to the cubs, who fought over the bird in a long game of tug-of-war. Eventually I noticed this little guy sleeping and walked a little too close and woke him up. You can see the irritation in his face - sorry!"
+        date: "July 18, 2026",
+        description: "On day 2 of backpacking hornstrandir, I had spent the day hiking from the horn, to the Hornbjargsviti lighthouse and then back to Hornvík where I decided to camp for the night. I spent the entire evening (the sun set after midnight so it was a long evening) sitting and watching the arctic fox cubs play around the surrounding area. I even got to witness a mother fox bring back a seabird catch to feed to the cubs, who fought over the bird in a long game of tug-of-war. Eventually I noticed this little guy sleeping and walked a little too close and woke him up. You can see the irritation in his face - sorry!"
     },
-    
+    {
+        title: 'Hornstrandir Cabin',
+        imgSrc: '/static/images/gallery/hornstrandirCabin.JPG',
+        isVertical: false,
+        camera: "Sony A7iv",
+        location: "Hornvík, Hornstrandir, Iceland",
+        date: "July 18, 2026",
+        description: "This cabin was located not far from the campsite in Hornvík. As I was observing the arctic foxes, I walked a bit closer to snap this photo. What a beautiful day it was. Hornstrandir can have some nasty weather and I was lucky to experience a number of perfect weather days."
+    },
+    {
+        title: 'Mom and Cub Arctic Foxes',
+        imgSrc: '/static/images/gallery/momAndCubFox.JPG',
+        isVertical: false,
+        camera: "Sony A7iv",
+        location: "Hlöðuvík, Hornstrandir, Iceland",
+        date: "July 20, 2026",
+        description: "While trekking to my camp spot in Hlöðuvík, I came across a couple cabins with about 20-25 tents outside. I curiously walked over and asked what was going on, only to discover it was the Hornstrandir Film Festival - the most remote film festival in the world! They invited me back that night for seafood soup and to watch one of the films - Yanuni. I ended up staying an extra day in the area with my new friends, talking and eating and even witnessing a daring sheep rescue. Two films were watched the next day. I watched the first one, but skipped the second to capture some photos of the arctic foxes that had a den underneath the cabin. They were a bit more active when everyone else was inside for the movie. It was actually a mixed color family. The mom was white and the dad was blue (even though the blue is very dark and looks black). I captured this image of the mother and one of the cubs venturing away from the den. I tried to count the total number of cubs and I think it sat somewhere between 10-12."
+    },
+    {
+        title: 'Itsukushima (Miyajima Island) Deer',
+        imgSrc: '/static/images/gallery/miyajimaDeer.JPG',
+        isVertical: false,
+        camera: "Sony A7iv",
+        location: "Itsukushima, Japan",
+        date: "December 26, 2025",
+        description: "Was looking for things to do around Hiroshima before cycling the Shimanami Kaido the next day. I heard of Miyajima Island and decided to explore. A short bus and ferry ride took me to the island. A few happy deer were wandering the area by the Itsukushima Jinja, which is the popular shinto shrine on the island. About 50 photos later, I had my favorite photo I've ever taken. I later hiked to the top of Mount Misen and taking a cable car back down where a nice lady offered me tasty chocolatte during the ride. It was a bit chilly and snowed a little that morning, but the sun was shining and it turned into such a wonderful time."
+    },
     
     // more photos...
   ]
