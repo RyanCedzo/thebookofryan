@@ -430,7 +430,51 @@ const photosData: Photo[] = [
         date: "December 26, 2025",
         description: "Was looking for things to do around Hiroshima before cycling the Shimanami Kaido the next day. I heard of Miyajima Island and decided to explore. A short bus and ferry ride took me to the island. A few happy deer were wandering the area by the Itsukushima Jinja, which is the popular shinto shrine on the island. About 50 photos later, I had my favorite photo I've ever taken. I later hiked to the top of Mount Misen and taking a cable car back down where a nice lady offered me tasty chocolatte during the ride. It was a bit chilly and snowed a little that morning, but the sun was shining and it turned into such a wonderful time."
     },
-    
+    {
+        title: 'Rainbow Waterfall Near Háifoss',
+        imgSrc: '/static/images/gallery/haifossRainbow.jpg',
+        isVertical: false,
+        camera: "Sony A7iv",
+        location: "Þjórsárdalur Valley, Iceland",
+        date: "July 25, 2026",
+        description: "I originally hiked into this valley to see Háifoss, where I went for a wonderfully cold dip underneath the waterfall. When I was climbing back out of the valley, the sun was shining perfectly across the multiple waterfalls, especially this smaller waterfall I don't know the name of. Took a few photos that turned out way better than I imagined. Then drove right from the cold water to a toasty hot spring in Reykjadalur Valley."
+    },
+    {
+        title: 'Nakatsugawa Sabo Dam Snowy Trees',
+        imgSrc: '/static/images/gallery/nakasendoSnowTrees.JPG',
+        isVertical: true,
+        camera: "Sony A7iv",
+        location: "Nakatsugawa, Gifu, Japan",
+        date: "December 14, 2025",
+        description: "I came across this sabo dam on the first leg of my Nakasendo journey from Nakatsugawa to Magome. I loved the contrast of nature/artiface and the brown/grey/red of the lower half with the green of the conifers all encompassed in the white snow."
+    },
+    {
+        title: 'Narai-juku Calm Morning',
+        imgSrc: '/static/images/gallery/narai.JPG',
+        isVertical: false,
+        camera: "Sony A7iv",
+        location: "Narai-juku, Nagano, Japan",
+        date: "December 18, 2025",
+        description: "About halfway through my Nakasendo trek, I arrived at Narai-juku. A slightly more touristy town compared to some of the other post towns I had spent the past few days journeying through. I spent the previous night as the only customer at a small tonkatsu restaurant then wandering the streets at night enjoying the lanterns as my only company. Eventually I made friends with a vending machine providing me with multiple beers and my pen and paper. I woke up early the next day to wander the streets as they came alive and thats when I took this photo. I probably tried half of the small food vendors this morning before continuing my way toward Matsumoto."
+    },
+    {
+        title: 'Fushimi Inari Taisha',
+        imgSrc: '/static/images/gallery/fushimiInari.JPG',
+        isVertical: false,
+        camera: "Sony A7iv",
+        location: "Fushimi-ku, Kyoto, Japan",
+        date: "December 24, 2025",
+        description: "Spent Christmas Eve exploring the Fushimi Inari Taisha shrine in Kyoto. Wandered out of the hostel and hopped on a bus over to the shrine early in the morning and walked deep into the 10,000 torii gates away from the crowds. Eventually made my way back to the hostel and spent Christmas Eve drinking sake with a new friend and skydiver from the UK. Thanks for the sake and good conversation!"
+    },
+    {
+        title: 'Megane-bashi Tunnel',
+        imgSrc: '/static/images/gallery/japanTunnel.JPG',
+        isVertical: false,
+        camera: "Sony A7iv",
+        location: "Annaka, Japan",
+        date: "December 20, 2025",
+        description: "The Usui 3rd Bridge (Megane-Bashi) is the largest arched brick bridge in Japan. I crossed the bridge when walking towards Yokokawa and eventually to a small guesthouse that usually houses bikers passing through. I was the only guest for the night and had a great conversation with the owner and his wife, who cooked a delicious breakfast in the morning (I tried natto for the first and possibly only time ugh). The picture was taken at the tunnel on the edge of the bridge. It used to be a railroad tunnel and I walked a kilometer or two in the other direction to come acrosss an abandoned railroad station. On my way back from the station I ran into a monkey gang of about 15 monkeys and had to wait it out as they scrambled all around me."
+    },
     // more photos...
   ]
 

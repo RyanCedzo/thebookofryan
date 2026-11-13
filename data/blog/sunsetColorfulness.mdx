@@ -1,0 +1,331 @@
+---
+title: 'What Makes a Sunset Colorful? - Quantifying Sunset Colorfulness With Hue Entropy'
+date: '2026-11-12'
+lastmod: '2026-11-12'
+tags: ['sunsets', 'math', 'projects']
+draft: false
+summary: 'Utilizing existing colorfulness formulas and adjusting with hue entropy to experiment finding the best way to quantify sunset colorfulness'
+images: ['/static/images/blog/thumbs/sunset172.jpg']
+---
+
+## Introduction
+
+For anybody that follows me on Instagram, you may be used to seeing my sunset bracket competitions. Every few months, when I had enough
+sunset images in my camera roll, I would choose my 16 favorites and run a bracket-style voting competition with my followers until one sunset remained
+victorious. These competitions have always been a bright side of social media for me, but have also secretly fronted my hidden data collection scheme.
+After over 5 years and 14 brackets, I was left with a LOT of voting data (over 20,000 votes!) to use at my will. I have spent quite a number of hours testing 
+different experiments with the data and building models to predict sunsets based on the voting data. However, today will not dive too deeply into this voting data, but rather
+one of the earlier formulas I stumbled across when experimenting with a sunsets beauty - colorfulness. While researching color measurements to apply to my images, I was particularly intrigued by Hasler and Süsstrunk's research paper
+[Measuring colorfulness in natural images](https://www.researchgate.net/publication/243135534_Measuring_colorfulness_in_natural_images) in which they develop a formula to calculate
+the colorfulness of an image. I found this paper cited frequently in many dicussions about colorfulness and their formula appears to be commonly used amongst those trying to measure
+colorfulness. This blog post will first dive into Hasler and Süsstrunk's colorfulness formula followed by my own applications and adjustments to the formula as I try to find the best
+quantifiers for sunset colorfulness.
+
+### Hasler and Süsstrunk's Colorfulness Formula
+
+Hasler and Süsstrunk's formula for colorfulness is relatively straightforward and breaks down into two main components - the standard deviation component (or spread) and the mean component.
+$$
+M = \underbrace{\sqrt{\sigma_{rg}^{2} + \sigma_{yb}^{2}}}_{\text{spread}}
+  + 0.3\,\underbrace{\sqrt{\mu_{rg}^{2} + \mu_{yb}^{2}}}_{\text{mean component}}
+$$
+Both components are calculated from two opponent color channels derived
+from RGB: $rg$, representing red–green differences, and $yb$, representing
+yellow–blue differences.
+
+For each pixel in the image, the derived $rg$ value is calculated by subtracting the
+green channel value from the red channel value:
+
+$$
+rg = R - G
+$$
+
+For example, a pink pixel with $(R, G, B)$ values of $(255, 100, 150)$ has:
+
+$$
+rg = 255 - 100 = 155
+$$
+
+The derived $yb$ value is calculated by subtracting the blue channel value
+from the average of the red and green channel values (which we can call "yellow")
+
+$$
+yb = \frac{R + G}{2} - B
+$$
+
+For the same pink pixel:
+
+$$
+yb = \frac{255 + 100}{2} - 150 = 27.5
+$$
+
+Once an $rg$ and a $yb$ value have been calculated for every pixel, we can then compute the standard deviation ($\sigma$) and mean ($\mu$) values and apply them to the formula. I would also
+like to note the 0.3 weighting coefficient on the mean component. This was chosen by Hasler and Süsstrunk after testing values with human judgement to determine the ideal weighting.
+
+### Applying the Colorfulness Formula on My Sunsets
+
+The Hasler and Süsstrunk formula was one of the first tools I used when experimenting with my sunset images, which led me to learn of some of its limitations. Directly in their research paper they state "We ignored any issues related to hue in this paper".
+When I first applied the formula to all of my sunset images and ranked them based solely on this metric, this became apparent. Let's take a look at the top 5 sunsets ranked by the formula. You can click any sunset in this post to enlarge the image.
+
+<div style={{ display: "grid", gridTemplateColumns: "repeat(5, 1fr)", gap: 8, margin: "20px 0" }}>
+  <a href="/static/images/blog/thumbs/sunset200.jpg" target="_blank" rel="noopener noreferrer">
+    <img src="/static/images/blog/thumbs/sunset200.jpg" alt="Sunset 1" style={{ width: "100%", aspectRatio: "1", objectFit: "cover", borderRadius: 8, display: "block", margin: 0, cursor: "zoom-in" }} />
+  </a>
+  <a href="/static/images/blog/thumbs/sunset069.jpg" target="_blank" rel="noopener noreferrer">
+    <img src="/static/images/blog/thumbs/sunset069.jpg" alt="Sunset 2" style={{ width: "100%", aspectRatio: "1", objectFit: "cover", borderRadius: 8, display: "block", margin: 0, cursor: "zoom-in" }} />
+  </a>
+  <a href="/static/images/blog/thumbs/sunset139.jpg" target="_blank" rel="noopener noreferrer">
+    <img src="/static/images/blog/thumbs/sunset139.jpg" alt="Sunset 3" style={{ width: "100%", aspectRatio: "1", objectFit: "cover", borderRadius: 8, display: "block", margin: 0, cursor: "zoom-in" }} />
+  </a>
+  <a href="/static/images/blog/thumbs/sunset029.jpg" target="_blank" rel="noopener noreferrer">
+    <img src="/static/images/blog/thumbs/sunset029.jpg" alt="Sunset 4" style={{ width: "100%", aspectRatio: "1", objectFit: "cover", borderRadius: 8, display: "block", margin: 0, cursor: "zoom-in" }} />
+  </a>
+  <a href="/static/images/blog/thumbs/sunset168.jpg" target="_blank" rel="noopener noreferrer">
+    <img src="/static/images/blog/thumbs/sunset168.jpg" alt="Sunset 5" style={{ width: "100%", aspectRatio: "1", objectFit: "cover", borderRadius: 8, display: "block", margin: 0, cursor: "zoom-in" }} />
+  </a>
+</div>
+
+These are some beautiful sunsets, but when looking at the over 200 sunset pictures in my gallery, I can find many that I would consider more "colorful". So why is this the case? Well, the Hasler and Süsstrunk formula for colorfulness only has two derived channels
+for calculating the score, red-green and yellow-blue. As I mentioned earlier, the formula does not consider distinct hues directly and therefore we can run into the problem of a sunset image scoring highly due to a domination of one or two highly saturated colors in the image.  
+To better understand this issue, let's compare two sunset images, the highest scoring sunset and a separate sunset I consider to be colorful that scored much lower.
+
+<div style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: 8, margin: "20px auto", maxWidth: 600 }}>
+  <div style={{ textAlign: "center" }}>
+    <a href="/static/images/blog/thumbs/sunset200.jpg" target="_blank" rel="noopener noreferrer">
+      <img src="/static/images/blog/thumbs/sunset200.jpg" alt="Sunset 200" style={{ width: "100%", aspectRatio: "3 / 2", objectFit: "cover", borderRadius: 8, display: "block", margin: 0, cursor: "zoom-in" }} />
+    </a>
+    <span style={{ display: "block", marginTop: 6, fontSize: "0.9rem", color: "#555" }}>Sunset 200</span>
+  </div>
+  <div style={{ textAlign: "center" }}>
+    <a href="/static/images/blog/thumbs/sunset091.jpg" target="_blank" rel="noopener noreferrer">
+      <img src="/static/images/blog/thumbs/sunset091.jpg" alt="Sunset 91" style={{ width: "100%", aspectRatio: "3 / 2", objectFit: "cover", borderRadius: 8, display: "block", margin: 0, cursor: "zoom-in" }} />
+    </a>
+    <span style={{ display: "block", marginTop: 6, fontSize: "0.9rem", color: "#555" }}>Sunset 91</span>
+  </div>
+</div>
+
+The following table shows the final colorfulness score as well as some of the intermediary calculations/components:
+
+| Component                 | Sunset 200 | Sunset 91 |
+| :------------------------ | ----------------: | ----------------------------: |
+| SD of rg                  |              35.9 |                          38.4 |
+| SD of yb                  |              64.8 |                          44.1 |
+| Mean rg                   |              70.3 |                          36.2 |
+| Mean yb                   |              99.1 |                           9.6 |
+| Combined spread           |              74.1 |                          58.5 |
+| Combined mean             |             121.5 |                          37.4 |
+| Mean contribution × 0.3   |              36.4 |                          11.2 |
+| **Colorfulness score**        |        **110.56** |                     **69.70** |
+
+If we take a look at the mean component first, we can see that sunset 200 has an incredibly large advantage for both $rg$ and $yb$ values. 
+This is due to sunset 200 having a majority of highly saturated orange pixels, which usually contain high $R$, moderate $G$, and low $B$ values, thus high $rg$ and very high $yb$ values.
+On the other hand, sunset 91 is less saturated overall and has more dark, blue and purple pixels, which pull its average $rg$ down. Its $yb$ score is even lower due to the blues and purples pushing
+the mean towards negative and thus cancelling out near a score close to 0. 
+
+In the standard deviation component, sunset 91 wins only slightly in $rg$ SD. While sunset 200 has tightly grouped $rg$ values due to overwhelming saturated oranges scoring highly and only some darker silhouettes to contribute
+to a larger spread, sunset 91 has some blue pixels and dark pixels in the rooftop that contribute low values for $rg$ thus increasing the overall spread of $rg$ values from the mean. Lastly, sunset 200 has a much larger spread score for $yb$ than sunset 91
+largely due to the overwhelmingly high $yb$ scores for the saturated oranges above the mean, which is pulled down by the dark silhouetted pixels. 
+
+### Saturation and Brightness Filtering
+
+So now we understand the issue - highly saturated monochromatic sunsets are frequently scoring higher than other sunsets that contain a larger diversity of hues that one might consider more colorful. This is when I started to really dive into
+how the formula could be adjusted. Instead of just scoring sunsets on the Hasler and Süsstrunk formula which uses just the two derived color channels, what if we added another component to the formula that directly penalized images with less hue diversity?
+Thus, the idea for adding hue entropy was born. 
+
+The idea of hue entropy utilizes the formula for Shannon entropy built specifically around hue bins of a randomly chosen pixel as our random variable. 
+If you're curious to learn more about Shannon entropy, which has a multitude of uses in different subjects, you can read about it [here](https://www.sciencedirect.com/topics/engineering/shannon-entropy), but let's jump into the formula.
+
+$$
+H = -\sum_{i} p_i \log_2 p_i
+$$
+
+With the Shannon entropy formula, for a certain category ($i$), and the share of items that fall into each category ($p_i$, which is a value between 0 and 1), we can calculate how evenly items fit into each category. Now when each category becomes a hue range, and each item becomes a pixel in the image, 
+this formula becomes exactly what we need to measure the hue diversity in an image! 
+
+However, before jumping directly into adding this to our formula, we need to do a bit of housecleaning on the image before it's ready to measure hue entropy. Achromatic pixels in our images (black, white, gray) are unreliable for hue measurement and if we keep them in our hue entropy calculations, the result could become
+inconsistent. So, the first step is to remove pixels that fall under a certain brightness or saturation threshold. A good example of this process can be found in the paper [Ke, Tang & Jing (2006)](https://www.microsoft.com/en-us/research/wp-content/uploads/2016/02/photoquality_cvpr06.pdf) whose approach I adapted.
+
+So far, we have been examining the $(R,G,B)$ values of the pixels in our images. When working specifically with brightness and saturation, it is easier to examine these pixels in a different format - $(H,S,V)$, which stands for Hue, Saturation, Value. The value term is often called brightness and measures the brightest of the $R$, $G$, and $B$ channels, scaled to 0-1.
+After testing a few different brightness value filters, I decided on filtering out all pixels with a value less than 0.15. This was the same threshold chosen in Ke, Tang & Jing (2006), except they also used an upper limit of 0.95, which I decided not to use (the sun is bright and beautiful)!
+
+$$
+V = \frac{\max(R, G, B)}{255} \geq 0.15
+$$
+
+This formula shows the process of selecting the brightest $(R,G,B)$ channel for each pixel, dividing by 255 to normalize to a 0-1 scale, and removing the pixels where this value is less than 0.15.
+
+Now that all the darkest pixels are removed, we just need to remove the pixels with the lowest saturation. The HSV saturation is calculated by finding the difference between the greatest and smallest of the $R$, $G$, and $B$ channels then dividing by the greatest. 
+Then, we can just filter out the pixels with a saturation less than 0.2.
+
+$$
+S = \frac{\max(R, G, B) - \min(R, G, B)}{\max(R, G, B)} \geq 0.2
+$$
+
+This removes all of the washed out, low saturation pixels in the image. 
+
+Now, after filtering out all the dark and achromatic pixels, we are finally ready to calculate a hue entropy score for each image!
+
+### Calculating Hue Entropy
+
+The first choice we have to make with our hue entropy formula is to select how many categories or "bins" to use. Not included in this article is my process of calculating hue entropy for all of the sunset images and using my own preference to determine a number of bins that 
+works the best for my sample sunset images. I think that this process will always have a human element involved, as "colorful" does not have an exact definition and subjectivity will always play a role in calculations. Further possible steps to take in this experiment could be to open the ranking of colorfulness of my images to a wider audience
+to gather other opinions than my own. This idea, along with others, can be found at the end of the article discussing possible next steps and adjustments to my process. Anyways, I ended up choosing 12 bins for my formula and thus am left with this:
+
+$$
+H = -\sum_{i=1}^{12} p_i \log_2 p_i
+$$
+
+As stated earlier, this is the Shannon entropy formula but now with a set number of categories. Before continuing, I wanted to quickly describe the flow of this calculation. Hue is measured on a continuous scale from 0°-360°. This scale wraps around, so a pixel with hue 355°, which is red, 
+has a very similar hue to a pixel with a hue of 5°, also red (they are only 10° apart). Since we have decided on 12 bins, we can quickly calculate that each bin will be $360°/12=30°$. In order to better fit hues, our first bin is centered exactly at 0°, so it encompasses 345°-15° which is most of the red color family. Our next bin would be from 15°-45° and so on until
+all of the hue spectrum is accounted for in the 12 bins. Then, we just need to assign a bin for each pixel in the image (sans the pixels we filtered out in the last step). For example, an orange pixel with a hue of 28° would fall into the 15°-45° bin. When all pixels have been assigned a bin, we can then look at the total share of pixels in each bin, 
+which corresponds to $p_i$ for each bin $i$.
+
+Now that all our pixels have a home in a comfy bin, we need to normalize our output so we can better use it in conjunction with the Hasler and Süsstrunk formula. Doing a few quick calculations, you can see that if all pixels fall into a single bin, then $\log_2 1 = 0$, so our entropy is 0, while if all pixels are spread evenly across the 12 bins, our entropy is
+$$
+H = -12 \cdot \left( \frac{1}{12} \log_2 \frac{1}{12} \right) = \log_2 12 \approx 3.585
+$$
+So our next step of normalizing our output is to just divide by $\log_2 12$ so our entropy value always sits between 0 and 1. 
+$$
+H_{norm} = \frac{H}{\log_2 12}
+$$
+
+### Combining to Build Adjusted Colorfulness Formula
+
+Finally, we are in the home stretch and ready to combine our newly created hue entropy formula with the Hasler and Süsstrunk colorfulness formula. However, there is one final small adjustment to make first. Currently, if we combined both formulas by multiplying them together directly, there could be some unintended results. For example, if a sunset image contains a single highly saturated hue, it would score
+zero for our normalized hue entropy formula and thus zero for our adjusted colorfulness score. Instead, let's welcome a final weighting parameter ($\alpha$) to our formula. After running tests across the sunset images using different values for alpha, I settled on a value of 0.2. This means that even a sunset with a single hue will still keep 20% of its Hasler and Süsstrunk colorfulness score, while the other 80% is subject to
+the entropy adjustment. Well, you've waited long enough. Here is the final adjusted colorfulness formula:
+
+$$
+M_{adjusted} = M_{HS} \left( \alpha + (1 - \alpha)\, H_{norm} \right), \quad \alpha = 0.2
+$$
+
+$M_{HS}$ is the Hasler and Süsstrunk colorfulness formula component, while $H_{norm}$ is our normalized hue entropy component.
+
+### Reranking Sunsets Based on Adjusted Colorfulness Formula
+
+After applying the new formula to all of my sunset images, I decided to show off the top 10 sunsets for both rankings: the original Hasler and Süsstrunk formula ranking (left) and the new adjusted formula with hue entropy (right). You can see these rankings in the following collection of images, with the top image being the highest ranking sunset for each respective formula.
+
+<div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 24, margin: "24px 0" }}>
+  <div>
+    <p style={{ fontWeight: 600, marginBottom: 8, textAlign: "center" }}>Hasler–Süsstrunk (Top 10)</p>
+    <div style={{ display: "grid", gridTemplateColumns: "1fr", gap: 8 }}>
+      <a href="/static/images/blog/thumbs/sunset200.jpg" target="_blank" rel="noopener noreferrer">
+        <img src="/static/images/blog/thumbs/sunset200.jpg" alt="Original Rank 1" style={{ width: "100%", height: "auto", borderRadius: 8, display: "block", margin: 0, cursor: "zoom-in" }} />
+      </a>
+      <a href="/static/images/blog/thumbs/sunset069.jpg" target="_blank" rel="noopener noreferrer">
+        <img src="/static/images/blog/thumbs/sunset069.jpg" alt="Original Rank 2" style={{ width: "100%", height: "auto", borderRadius: 8, display: "block", margin: 0, cursor: "zoom-in" }} />
+      </a>
+      <a href="/static/images/blog/thumbs/sunset139.jpg" target="_blank" rel="noopener noreferrer">
+        <img src="/static/images/blog/thumbs/sunset139.jpg" alt="Original Rank 3" style={{ width: "100%", height: "auto", borderRadius: 8, display: "block", margin: 0, cursor: "zoom-in" }} />
+      </a>
+      <a href="/static/images/blog/thumbs/sunset029.jpg" target="_blank" rel="noopener noreferrer">
+        <img src="/static/images/blog/thumbs/sunset029.jpg" alt="Original Rank 4" style={{ width: "100%", height: "auto", borderRadius: 8, display: "block", margin: 0, cursor: "zoom-in" }} />
+      </a>
+      <a href="/static/images/blog/thumbs/sunset168.jpg" target="_blank" rel="noopener noreferrer">
+        <img src="/static/images/blog/thumbs/sunset168.jpg" alt="Original Rank 5" style={{ width: "100%", height: "auto", borderRadius: 8, display: "block", margin: 0, cursor: "zoom-in" }} />
+      </a>
+      <a href="/static/images/blog/thumbs/sunset105.jpg" target="_blank" rel="noopener noreferrer">
+        <img src="/static/images/blog/thumbs/sunset105.jpg" alt="Original Rank 6" style={{ width: "100%", height: "auto", borderRadius: 8, display: "block", margin: 0, cursor: "zoom-in" }} />
+      </a>
+      <a href="/static/images/blog/thumbs/sunset115.jpg" target="_blank" rel="noopener noreferrer">
+        <img src="/static/images/blog/thumbs/sunset115.jpg" alt="Original Rank 7" style={{ width: "100%", height: "auto", borderRadius: 8, display: "block", margin: 0, cursor: "zoom-in" }} />
+      </a>
+      <a href="/static/images/blog/thumbs/sunset119.jpg" target="_blank" rel="noopener noreferrer">
+        <img src="/static/images/blog/thumbs/sunset119.jpg" alt="Original Rank 8" style={{ width: "100%", height: "auto", borderRadius: 8, display: "block", margin: 0, cursor: "zoom-in" }} />
+      </a>
+      <a href="/static/images/blog/thumbs/sunset185.jpg" target="_blank" rel="noopener noreferrer">
+        <img src="/static/images/blog/thumbs/sunset185.jpg" alt="Original Rank 9" style={{ width: "100%", height: "auto", borderRadius: 8, display: "block", margin: 0, cursor: "zoom-in" }} />
+      </a>
+      <a href="/static/images/blog/thumbs/sunset201.jpg" target="_blank" rel="noopener noreferrer">
+        <img src="/static/images/blog/thumbs/sunset201.jpg" alt="Original Rank 10" style={{ width: "100%", height: "auto", borderRadius: 8, display: "block", margin: 0, cursor: "zoom-in" }} />
+      </a>
+    </div>
+  </div>
+
+  <div>
+    <p style={{ fontWeight: 600, marginBottom: 8, textAlign: "center" }}>Adjusted with Hue Entropy (Top 10)</p>
+    <div style={{ display: "grid", gridTemplateColumns: "1fr", gap: 8 }}>
+      <a href="/static/images/blog/thumbs/sunset115.jpg" target="_blank" rel="noopener noreferrer">
+        <img src="/static/images/blog/thumbs/sunset115.jpg" alt="Adjusted Rank 1" style={{ width: "100%", height: "auto", borderRadius: 8, display: "block", margin: 0, cursor: "zoom-in" }} />
+      </a>
+      <a href="/static/images/blog/thumbs/sunset119.jpg" target="_blank" rel="noopener noreferrer">
+        <img src="/static/images/blog/thumbs/sunset119.jpg" alt="Adjusted Rank 2" style={{ width: "100%", height: "auto", borderRadius: 8, display: "block", margin: 0, cursor: "zoom-in" }} />
+      </a>
+      <a href="/static/images/blog/thumbs/sunset015.jpg" target="_blank" rel="noopener noreferrer">
+        <img src="/static/images/blog/thumbs/sunset015.jpg" alt="Adjusted Rank 3" style={{ width: "100%", height: "auto", borderRadius: 8, display: "block", margin: 0, cursor: "zoom-in" }} />
+      </a>
+      <a href="/static/images/blog/thumbs/sunset091.jpg" target="_blank" rel="noopener noreferrer">
+        <img src="/static/images/blog/thumbs/sunset091.jpg" alt="Adjusted Rank 4" style={{ width: "100%", height: "auto", borderRadius: 8, display: "block", margin: 0, cursor: "zoom-in" }} />
+      </a>
+      <a href="/static/images/blog/thumbs/sunset172.jpg" target="_blank" rel="noopener noreferrer">
+        <img src="/static/images/blog/thumbs/sunset172.jpg" alt="Adjusted Rank 5" style={{ width: "100%", height: "auto", borderRadius: 8, display: "block", margin: 0, cursor: "zoom-in" }} />
+      </a>
+      <a href="/static/images/blog/thumbs/sunset092.jpg" target="_blank" rel="noopener noreferrer">
+        <img src="/static/images/blog/thumbs/sunset092.jpg" alt="Adjusted Rank 6" style={{ width: "100%", height: "auto", borderRadius: 8, display: "block", margin: 0, cursor: "zoom-in" }} />
+      </a>
+      <a href="/static/images/blog/thumbs/sunset102.jpg" target="_blank" rel="noopener noreferrer">
+        <img src="/static/images/blog/thumbs/sunset102.jpg" alt="Adjusted Rank 7" style={{ width: "100%", height: "auto", borderRadius: 8, display: "block", margin: 0, cursor: "zoom-in" }} />
+      </a>
+      <a href="/static/images/blog/thumbs/sunset128.jpg" target="_blank" rel="noopener noreferrer">
+        <img src="/static/images/blog/thumbs/sunset128.jpg" alt="Adjusted Rank 8" style={{ width: "100%", height: "auto", borderRadius: 8, display: "block", margin: 0, cursor: "zoom-in" }} />
+      </a>
+      <a href="/static/images/blog/thumbs/sunset152.jpg" target="_blank" rel="noopener noreferrer">
+        <img src="/static/images/blog/thumbs/sunset152.jpg" alt="Adjusted Rank 9" style={{ width: "100%", height: "auto", borderRadius: 8, display: "block", margin: 0, cursor: "zoom-in" }} />
+      </a>
+      <a href="/static/images/blog/thumbs/sunset187.jpg" target="_blank" rel="noopener noreferrer">
+        <img src="/static/images/blog/thumbs/sunset187.jpg" alt="Adjusted Rank 10" style={{ width: "100%", height: "auto", borderRadius: 8, display: "block", margin: 0, cursor: "zoom-in" }} />
+      </a>
+    </div>
+  </div>
+</div>
+
+In my opinion, I consider the sunsets on the right to be more colorful, but that's also completely up for interpretation, and I would love to hear what other people think. I also included a secondary table to show some of the scoring values using the formulas.
+This table provides scores for the top 10 sunsets ranked by the new adjusted colorfulness score with hue entropy. It also includes the original Hasler and Süsstrunk formula score.
+
+| Sunset | Original HS | Hue Entropy | Adjusted Score |
+| :--- | ---: | ---: | ---: |
+| sunset115 | 89.42 | 0.6565 | 64.84 |
+| sunset119 | 86.92 | 0.5983 | 58.99 |
+| sunset015 | 82.88 | 0.6208 | 57.74 |
+| sunset091 | 69.70 | 0.7327 | 54.80 |
+| sunset172 | 65.24 | 0.7543 | 52.42 |
+| sunset092 | 69.84 | 0.6815 | 52.04 |
+| sunset102 | 77.44 | 0.5840 | 51.67 |
+| sunset128 | 76.51 | 0.5899 | 51.41 |
+| sunset152 | 73.76 | 0.6211 | 51.40 |
+| sunset187 | 67.93 | 0.6640 | 49.67 |
+
+### Reflection
+
+This was not originally a path I was going to take. It started when I was trying to add a colorfulness score to my sunset images to better predict which of my sunset images were more likely to win one of my bracket competitions. 
+When the colorfulness calculations didn't seem to correlate, I decided to journey down the rabbit hole and attempt to find a better formula for colorfulness in relation to sunset images. I find this a uniquely interesting problem, mainly due to 
+the subjective nature of colorfulness and beauty. I am sure that if I asked a bunch of friends to rank all my sunset images from most to least colorful, there would be discrepencies between each person. Brightness, hue diversity, saturation, are all 
+factors one would consider when examining colorfulness. How all these factors best mesh together will differ from person to person.
+
+Quantifying beauty has been a major theme in my overarching sunset project and colorfulness is just the first deep dive. I think subjective beauty is one of the things that first attracted me to studying sunsets. When I first started my sunset bracket competitions,
+it was originally meant as a fun way to show off my favorite sunset images. I never expected there to be much variation in which sunsets were preferred over others. Boy was I wrong. Not only were many sunsets narrowly divided in votes, but some of my favorite sunsets 
+were unpopular among others. I promise I haven't taken any offence to this, but I am still confused about a few sunsets I thought were so incredibly beautiful. There's subjectivity in "colorful", but theres a lot more subjectivity in "beautiful", and I plan to explore this idea more. 
+How special of a world we live in where there is no true identifier of beauty. I hope that never changes, but I am going to enjoy the process of searching and learning. 
+
+Now that I have a formula for colorfulness I like, I intend to use it in future experiments with my sunset data. This entire project so far hasn't even
+considered the voting data that I collected for all the sunset images. There is a lot still to be explored, and I am excited for what lies ahead. 
+
+### Additions/Criticisms
+
+I wanted to briefly talk about potential issues and considerations as well as future additions to this project. I'll add to this if I think of more.
+
+The first issue is that I chose the filtering thresholds, number of bins, and final weighting parameter by personally observing outcomes to their adjustments. I am one person. I have already learned enough
+that opinions on these matters can vary wildly. A sunset I consider to be highly colorful might not be considered as colorful to another person. A way to potentially better account for this issue is to 
+have multiple people rank all the sunset images and then combine to have a more well-rounded ranking that isn't dependent on just my opinion.
+
+Another potential issue is that not all of the sunset images were taken with the same camera. All of the images were taken with my phone over many years in which I owned multiple phones (all Google Pixels). Each phone camera
+can process the image differently and thus lead to slightly different scoring had they all been taken on the same camera. I'm not sure of any way to combat this issue other than only use images from the same camera.
+
+Finally, a few potential future additions:
+- Give all sunsets a ranking based on human preference, then tune each threshold and parameter by testing accuracy for different values.
+- Using sunset voting data, predict accuracy of winning sunsets based solely on colorfulness value (are people choosing their favorite sunsets on color or other factors?)
+- Combine colorfulness score with other quantifiers (luminance, presence of natural features, warm/cool ratios, saturation, etc.) to predict bracket outcomes.
+
+And of course, for anybody that read all the way to the end, thanks for reading :) I would love to hear your thoughts, questions, or criticisms on this.
+
+Messy Jupyter notebook: I'll add this link when I throw it onto GitHub<br/>
+All sunset photos: [Google Photos album](https://photos.app.goo.gl/7EHWZGQSFj6o2jrs6)
